@@ -1,31 +1,32 @@
 package com.driver.models;
 
-
-
-import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="blogs")
-public class Blog {
+@Table(name="user_table")
+public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int id;
-    private String title;
-    private String content;
-    @CreationTimestamp
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date pubDate;
+    private int id;
 
-    public Blog() {
+    private String username;
+
+    private String password;
+
+    private String firstName;
+
+    private String lastName;
+
+    public User(String username, String password, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
-    public Blog(int id,String title, String content) {
-        this.id=id;
-        this.title = title;
-        this.content = content;
+
+    public User() {
     }
 
     public int getId() {
@@ -36,50 +37,46 @@ public class Blog {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getUsername() {
+        return username;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getContent() {
-        return content;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Date getPubDate() {
-        return pubDate;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPubDate(Date pubDate) {
-        this.pubDate = pubDate;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    @ManyToOne
-    @JoinColumn
-    private User user;
-
-    @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
-    private List<Image> imageList;
-
-    public User getUser() {
-        return user;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public List<Image> getImageList() {
-        return imageList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Blog> blogList;
+
+    public List<Blog> getBlogList() {
+        return blogList;
     }
 
-    public void setImageList(List<Image> imageList) {
-        this.imageList = imageList;
+    public void setBlogList(List<Blog> blogList) {
+        this.blogList = blogList;
     }
 }
